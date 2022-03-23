@@ -1,1 +1,3 @@
 __pycache__
+mnist/*
+exercise2_config.py
