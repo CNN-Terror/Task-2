@@ -52,18 +52,46 @@ class PR_CNN(nn.Module):
         # PR_FILL_HERE: Here you have to put the expected input size in terms of width and height of your input image
         self.expected_input_size = (28, 28)
 
+        # self.conv1 = nn.Sequential(
+        #     # PR_FILL_HERE: Here you have to put the input channels, output channels ands the kernel size
+        #     nn.Conv2d(in_channels=1, out_channels=3, kernel_size=3, stride=3),
+        #     nn.LeakyReLU(),
+
+        #     nn.Conv2d(in_channels=3, out_channels=6, kernel_size=3, stride=3),
+        #     nn.LeakyReLU(),
+
+        #     nn.Conv2d(in_channels=6, out_channels=6, kernel_size=3, stride=3),
+        #     nn.LeakyReLU()
+        # )
+
+        # The following configuration works
         # First layer
         self.conv1 = nn.Sequential(
             # PR_FILL_HERE: Here you have to put the input channels, output channels ands the kernel size
-            nn.Conv2d(in_channels=1, out_channels=3, kernel_size=3, stride=3),
-            nn.LeakyReLU(),
-
-            nn.Conv2d(in_channels=3, out_channels=6, kernel_size=3, stride=3),
-            nn.LeakyReLU(),
-
-            nn.Conv2d(in_channels=6, out_channels=6, kernel_size=3, stride=3),
+            # [(28 - 3) / 3] + 1 = 9 output size 
+            # 9 * 9 * 8 = 648 
+            nn.Conv2d(in_channels=1, out_channels=8, kernel_size=3, stride=3),
             nn.LeakyReLU()
         )
+
+        # Second layer
+        self.conv2 = nn.Sequential(
+            # PR_FILL_HERE: Here you have to put the input channels, output channels ands the kernel size
+            # [(9 - 3) / 2] + 1 = 4 output size
+            nn.Conv2d(in_channels=8, out_channels=16, kernel_size=3, stride=2),
+            nn.LeakyReLU()
+        )
+
+        # Third layer
+        self.conv3 = nn.Sequential(
+            # PR_FILL_HERE: Here you have to put the input channels, output channels ands the kernel size
+            # [(4 - 2) / 2] + 1 = 2 output size
+            nn.Conv2d(in_channels=16, out_channels=384, kernel_size=2, stride=2),
+            nn.LeakyReLU()
+        )
+
+        # 1536 = 3 * 2^9 = 6 * 2^8 = 6 * 16 * 16 = 24 * 8 * 8 
+        # Number of features = 2 * 2 * 384 = 1536
 
         # Classification layer
         self.fc = nn.Sequential(
@@ -87,5 +115,7 @@ class PR_CNN(nn.Module):
             Activations of the fully connected layer
         """
         x = self.conv1(x)
+        x = self.conv2(x)
+        x = self.conv3(x)
         x = self.fc(x)
         return x
