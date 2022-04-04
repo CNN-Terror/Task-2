@@ -119,6 +119,9 @@ class PR_CNN(nn.Module):
         x = self.conv2(x)
         x = self.conv3(x)
         x = self.fc(x)
+
+        return x
     
+        # No need for this if using CrossEntropyLoss
         # Apply Softmax so the values don't become too large
-        return nn.Softmax(dim=1)(x)
+        # return nn.Softmax(dim=1)(x)
