@@ -1,0 +1,68 @@
+\documentclass[10pt,a4paper,fullpage]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{titling}
+
+\geometry{a4paper, margin=1in}
+\pagenumbering{gobble} 
+
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\begin{document}
+
+\title{Pattern Recognition - Exercise 2c (CNN)}
+\author{}
+\predate{}
+\postdate{}
+\date{\vspace{-5ex}}
+\maketitle
+
+
+\textbf{Implementation details}
+\begin{itemize}
+	\item We didn't use a constant learning rate. Instead, the learning rate was decreasing with 10\% from one epoch to another.
+	\item We used cross validation with 5 number of folds to determine the pair (number of epochs, learning rate) for which we were able to train the model with the highest accuracy (on the validation set that we extracted from the initial train set). Then, with these 2 values found, we trained the model once again (on the whole train dataset this time) and evaluated it using the test dataset.
+	\item Stochastic Gradient Descent.
+\end{itemize}
+
+
+\textbf{Testing details}
+\begin{itemize}
+	\item Number of epochs: 10, 15, 20
+	\item Initial learning rate: 0.01, 0.05, 0.1
+	\item Batch size: 32
+\end{itemize}
+
+
+\textbf{Results}
+\begin{itemize}
+	\item Number of epochs: 10
+	\item Initial learning rate: 0.1
+	\item Accuracy: 98.23\%
+\end{itemize}
+
+
+% train_accuracy: [tensor(95.5000), tensor(97.1883), tensor(97.1683), tensor(97.6167), tensor(98.2150), tensor(98.1500), tensor(98.4400), tensor(98.5000), tensor(98.5917), tensor(98.7400)]
+% test_accuracy: [tensor(95.6600), tensor(97.0400), tensor(97.1400), tensor(97.4300), tensor(98.0700), tensor(98.0100), tensor(98.2800), tensor(98.1800), tensor(98.2500), tensor(98.2300)]
+
+% From https://timodenk.com/blog/exporting-matplotlib-plots-to-latex/
+\begin{figure}
+	\begin{center}
+%		\input{cnn_model_plot.pgf}
+		\includegraphics[scale=1]{cnn_model_plot.png}
+	\end{center}
+%	\caption{A PGF histogram from \texttt{matplotlib}.}
+\end{figure}
+
+
+\end{document}
