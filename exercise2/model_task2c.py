@@ -67,7 +67,7 @@ class PR_CNN(nn.Module):
         # The following configuration works
         # First layer
         self.conv1 = nn.Sequential(
-            nn.Dropout2d(p=0.2),
+            nn.Dropout2d(p=0.4),
             # PR_FILL_HERE: Here you have to put the input channels, output channels ands the kernel size
             # [(28 - 3) / 3] + 1 = 9 output size 
             # 9 * 9 * 8 = 648 
