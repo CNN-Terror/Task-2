@@ -34,6 +34,33 @@
 	\item See Report of Exercise 2b (MLP)
 	\item See Report of Exercise 2c (CNN)
 \end{itemize}
+\hfill \break
+
+\textbf{Results for MLP permutated}
+\begin{itemize}
+	\item Number of iterations: 100
+    \item Hidden layer size: 100
+    \item Learning rate: 0.001
+    \item Train accuracy: 98.48\%
+    \item Test accuracy: 95.75\%
+    \item Train loss: 0.062085
+    \item Test loss: 0.137676
+\end{itemize}
+
+% From https://timodenk.com/blog/exporting-matplotlib-plots-to-latex/
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{mlp_model_plot_permutated.png}
+	\end{center}
+\end{figure}
+
+\textbf{Comparision between MLP with normal dataset and MLP with permutated dataset}
+\begin{itemize}
+	\item The accuracy is slighly bigger with the permutated MNIST dataset (95.75\% vs 95.68\%)
+	\item The loss is slighly lower with the permutated MNIST dataset
+	\item We clearly see that having the dataset permutated for the classification with the MLP is not a problem. We even have (very slightly) better results with this two particular runs. If the permutation is always the same on each images, there would be no reason that the algorithm not to recognize the digits, because each pixel is taken into account independently.
+\end{itemize}
+\hfill \break
 
 \textbf{Results for CNN permutated}
 \begin{itemize}
@@ -42,6 +69,7 @@
 	\item Accuracy: 97.71\%
 \end{itemize}
 
+\hfill \break
 \vspace{-0.5cm}
 \begin{center}
 	\begin{tabular}{ r | c | c | c | c }
@@ -81,12 +109,11 @@
 	\end{center}
 \end{figure}
 
-
 \textbf{Comparision between CNN with normal dataset and CNN with permutated dataset}
 \begin{itemize}
 	\item The accuracy is slighly lower with the permutated MNIST dataset (98.60\% vs 97.71\%)
 	\item The loss is slighly lower with the permutated MNIST dataset
-	\item We clearly see that it is not a problem that the dataset given is permutated for the classification with the CNN 
+	\item We clearly see that having the dataset permutated for the classification with the CNN is not a problem. Same as before.
 \end{itemize}
 
 
