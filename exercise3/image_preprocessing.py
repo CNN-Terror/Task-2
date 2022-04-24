@@ -14,9 +14,12 @@ def CropImage(original_image, mask_path):
   draw = ImageDraw.Draw(mask)
   draw.polygon(mask_points, fill=255, outline=None)
 
-  all_white_image = Image.new("L", original_image.size, 255)
+  # Use the page color to fill in empty space
+  _, page_color_rgb = sorted(list(dict.fromkeys(original_image.getcolors())))[-1]
+  page_color = page_color_rgb[0]
+  background_image = Image.new("L", original_image.size, page_color)
 
-  result = Image.composite(original_image, all_white_image, mask)
+  result = Image.composite(original_image, background_image, mask)
 
   # Crop margins 
   # https://www.geeksforgeeks.org/python-pil-image-crop-method/
