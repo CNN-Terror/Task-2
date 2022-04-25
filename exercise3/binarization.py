@@ -5,6 +5,9 @@ import numpy as np
 from PIL import Image
 
 
+# TODO: write a method for binarization, not necessary Otsu
+
+# NOT WORKING
 def ApplyOtsu(jpg_image_filename):
   original_image = cv2.imread(jpg_image_filename)
   # _, final_image_pixels = cv2.threshold(original_image, 127, 255, cv2.THRESH_BINARY)
