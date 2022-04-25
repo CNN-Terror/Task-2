@@ -15,7 +15,8 @@ def CropImage(original_image, mask_path):
   draw.polygon(mask_points, fill=255, outline=None)
 
   # Use the page color to fill in empty space
-  _, page_color_rgb = sorted(list(dict.fromkeys(original_image.getcolors())))[-1]
+  colors_rgb = sorted(list(dict.fromkeys(original_image.getcolors())), key=lambda x: x[1])
+  _, page_color_rgb = colors_rgb[-1]
   page_color = page_color_rgb[0]
   background_image = Image.new("L", original_image.size, page_color)
 
