@@ -24,14 +24,38 @@ def ExtractImagePaths(text_file_path):
 
 
 # Extracts transcriptions.
-def ExtractTranscriptions():
+# Output:
+#  - transcriptions: dict. transcriptions[keyword_id] = (transcription, index in the doc)
+def ExtractTranscriptionsAsDictionary():
   transcriptions = {}
+
+  transcriptions_path = os.path.join(config.DATA_ROOT_DIR, 'ground-truth/transcription.txt')
+  index = 0
+  current_file = None
+  with open(transcriptions_path) as transcriptions_file:
+    for line in transcriptions_file.readlines():
+      keyword_id, keyword_transcription = line.strip().split(sep=" ")
+      keyword_file = keyword_id.split(sep="-")[0]
+      if keyword_file != current_file:
+        current_file = keyword_file
+        index = 0
+      transcriptions[keyword_id] = (keyword_transcription, index)
+      index += 1
+
+  return transcriptions
+
+
+# Extracts transcriptions.
+# Output:
+#  - transcriptions: list of (keyword_id, keyword_transcription)
+def ExtractTranscriptionsAsList():
+  transcriptions = []
 
   transcriptions_path = os.path.join(config.DATA_ROOT_DIR, 'ground-truth/transcription.txt')
   with open(transcriptions_path) as transcriptions_file:
     for line in transcriptions_file.readlines():
       keyword_id, keyword_transcription = line.strip().split(sep=" ")
-      transcriptions[keyword_id] = keyword_transcription
+      transcriptions.append((keyword_id, keyword_transcription))
 
   return transcriptions
 
