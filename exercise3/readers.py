@@ -61,9 +61,14 @@ def ExtractTranscriptionsAsList():
 
 
 # Extracts keywords.
+# Output:
+#  - keywords_to_search: list of strings (transcriptions)
 def ExtractKeywords():
   keywords_to_search = []
+
   keywords_path = os.path.join(config.DATA_ROOT_DIR, 'task/keywords.txt')
   with open(keywords_path) as keywords_file:
     for line in keywords_file.readlines():
       keywords_to_search.append(line.strip())
+
+  return keywords_to_search
