@@ -7,3 +7,4 @@ class Word:
 
 class TestWord(Word):
   closest_train_word = None # Word
+  distance_to_closest_train_word = None # number
