@@ -12,7 +12,7 @@ def FindClosestKnownWord(unknwon_word, known_words, distances):
       smallest_distance_to_word = distances[known_word.id][unknwon_word.id]
       closest_word = known_word
   
-  return closest_word
+  return closest_word, smallest_distance_to_word
 
 
 # Find all test images whose closest train word has the given transcription 
