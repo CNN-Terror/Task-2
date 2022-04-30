@@ -56,7 +56,7 @@ def CropImage(original_image, mask_path):
   # Use the page color to fill in empty space
   colors_rgb = sorted(list(dict.fromkeys(original_image.getcolors())), key=lambda x: x[1])
   _, page_color_rgb = colors_rgb[-1]
-  page_color = page_color_rgb[0]
+  page_color = page_color_rgb if original_image.mode == "L" else page_color_rgb[0]
   background_image = Image.new("L", original_image.size, page_color)
 
   result = Image.composite(original_image, background_image, mask)
