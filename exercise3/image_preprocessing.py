@@ -8,7 +8,8 @@ from PIL import Image
 #  - original_image: PIL.image
 def __CropImageUpperAndLowerMargins(original_image):
   colors_rgb = sorted(list(dict.fromkeys(original_image.getcolors())), key=lambda x: x[1])
-  _, page_color = colors_rgb[-1]
+  _, page_color_rgb = colors_rgb[-1]
+  page_color = page_color_rgb if original_image.mode == "L" else page_color_rgb[0]
 
   pixels = np.array(original_image)
 
