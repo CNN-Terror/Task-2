@@ -55,7 +55,8 @@ if __name__ == "__main__":
 
   # Single method only!
   feature_extraction_methods = [Method.BLACK_PIXEL_RATIO]
-  transcriptions_as_list, keywords_to_search, train_words, test_words = GetProcessedInputData(feature_extraction_methods)
+  transcriptions_as_list, keywords_to_search, train_words, test_words = \
+    GetProcessedInputData(feature_extraction_methods, debug=True)
 
   try:
     os.mkdir(os.path.join(config.OUTPUT_DIR, feature_extraction_methods[0].name))

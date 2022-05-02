@@ -17,13 +17,16 @@ from feature_extraction import ExtractFeatures
 #     - transcription
 #     - image
 #     - features
-def BuildTrainAndTestWords(train_words_per_image, test_words_per_image, transcriptions, feature_extraction_methods):
+def BuildTrainAndTestWords(train_words_per_image, test_words_per_image, transcriptions, feature_extraction_methods, debug=False):
   train_words = []
   test_words = []
   
   index = 0
   for _, train_words_per_current_image in train_words_per_image.items():
     for train_word in train_words_per_current_image:
+      if debug:
+        print(f'Build train word {transcriptions[index][0]}')
+
       word = Word()
       word.image = train_word
       word.features = [e for v in ExtractFeatures(train_word, feature_extraction_methods) for e in v]
@@ -37,6 +40,9 @@ def BuildTrainAndTestWords(train_words_per_image, test_words_per_image, transcri
     while transcriptions[index][0].split("-")[0] != image_number:
       index += 1
     for test_word in test_words_per_current_image:
+      if debug:
+        print(f'Build test word {transcriptions[index][0]}')
+
       word = TestWord()
       word.image = test_word
       word.features = [e for v in ExtractFeatures(test_word, feature_extraction_methods) for e in v]

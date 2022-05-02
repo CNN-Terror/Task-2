@@ -106,7 +106,7 @@ def ExtractKeywords():
 
 
 # Reads all input data and processes it.
-def GetProcessedInputData(feature_extraction_methods):
+def GetProcessedInputData(feature_extraction_methods, debug=False):
   transcriptions_as_list = ExtractTranscriptionsAsList()
   keywords_to_search = ExtractKeywords()
 
@@ -121,6 +121,6 @@ def GetProcessedInputData(feature_extraction_methods):
                             test_images_numbers, test_jpg_paths, test_svg_paths)
 
   train_words, test_words = \
-    BuildTrainAndTestWords(train_words_per_image, test_words_per_image, transcriptions_as_list, feature_extraction_methods)
+    BuildTrainAndTestWords(train_words_per_image, test_words_per_image, transcriptions_as_list, feature_extraction_methods, debug)
   
   return transcriptions_as_list, keywords_to_search, train_words, test_words
