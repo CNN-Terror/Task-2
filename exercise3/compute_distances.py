@@ -57,13 +57,19 @@ if __name__ == "__main__":
   feature_extraction_methods = [Method.BLACK_PIXEL_RATIO]
   transcriptions_as_list, keywords_to_search, train_words, test_words = GetProcessedInputData(feature_extraction_methods)
 
+  try:
+    os.mkdir(os.path.join(config.OUTPUT_DIR, feature_extraction_methods[0].name))
+  except OSError as error: 
+    # Directory already exists
+    pass
+
   for train_word in train_words:
     print('====================================================================================================')
     print(f'Train word id: {train_word.id}')
     train_page_id = train_word.id.split('-')[0]
 
     try:
-      os.mkdir(os.path.join(config.OUTPUT_DIR, train_page_id))
+      os.mkdir(os.path.join(config.OUTPUT_DIR, feature_extraction_methods[0].name, train_page_id))
     except OSError as error: 
       # Directory already exists
       pass
