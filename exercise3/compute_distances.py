@@ -45,7 +45,7 @@ def __WriteToFile(filepath, distances):
 
 
 # We'll store distances in an output dir using csv files as follows
-# {output_dir_name}/{page_number}/{word_id}__{feature} = output/270/270-01-01__1
+# {output_dir_name}/{feature}/{page_number}/{word_id}.csv = output/BLACK_PIXEL_RATIO/270/270-01-01.csv
 if __name__ == "__main__":
   try:
     os.mkdir(os.path.join(config.OUTPUT_DIR))
@@ -68,8 +68,6 @@ if __name__ == "__main__":
       # Directory already exists
       pass
 
-    filepath = os.path.join(config.OUTPUT_DIR, train_page_id, f'{train_word.id}__{str(feature_extraction_methods[0].value)}.csv')
+    filepath = os.path.join(config.OUTPUT_DIR, feature_extraction_methods[0].name, train_page_id, f'{train_word.id}.csv')
     distances = ComputeDistances([train_word], test_words, debug=True)
     __WriteToFile(filepath, distances[train_word.id])
-    
-    input()
