@@ -20,16 +20,18 @@ def ExtractWordImagesFromOriginalImage(original_image_path, mask_path):
 def ExtractTrainAndTestWords(train_images_numbers, train_jpg_paths, train_svg_paths,
                              test_images_numbers, test_jpg_paths, test_svg_paths):
   train_words_per_image = {}
-  # for index in range(len(train_images_numbers)):
+  for index in range(len(train_images_numbers)):
   # TODO: iterate over all images. we can leave it like this for now for testing
-  for index in range(1):
-    train_words_per_image[train_images_numbers[index]] = ExtractWordImagesFromOriginalImage(train_jpg_paths[index], train_svg_paths[index])
+  # for index in range(1):
+    train_words_per_image[train_images_numbers[index]] = \
+      ExtractWordImagesFromOriginalImage(train_jpg_paths[index], train_svg_paths[index])
 
   test_words_per_image = {}
-  # for index in range(len(test_images_numbers)):
+  for index in range(len(test_images_numbers)):
   # TODO: iterate over all images. we can leave it like this for now for testing
-  for index in range(1):
-    test_words_per_image[test_images_numbers[index]] = ExtractWordImagesFromOriginalImage(test_jpg_paths[index], test_svg_paths[index])
+  # for index in range(1):
+    test_words_per_image[test_images_numbers[index]] = \
+      ExtractWordImagesFromOriginalImage(test_jpg_paths[index], test_svg_paths[index])
 
   return train_words_per_image, test_words_per_image
 
