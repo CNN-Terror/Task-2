@@ -5,11 +5,12 @@ from dtaidistance import dtw
 # Input:
 #  - word: Word
 #  - other_words: list of Word
-def ComputeDurations(word, other_words):
+def ComputeDistance(word, other_words):
   distances = {}
   for other_word in other_words:
     distances[other_word.id] = \
       dtw.distance(word.features, other_word.features)
+  return distances
 
 
 # Compute distances between the first set of words and the second set of words.
@@ -19,5 +20,5 @@ def ComputeDurations(word, other_words):
 def ComputeDistances(first_set_of_words, second_set_of_words):
   distances = {}
   for first_word in first_set_of_words:
-    distances[first_word.id] = ComputeDurations(first_word, second_set_of_words)
+    distances[first_word.id] = ComputeDistance(first_word, second_set_of_words)
   return distances
