@@ -1,9 +1,11 @@
 import csv
 import os
 from dtaidistance import dtw
+from fastdtw import fastdtw
 from feature_extraction import Method
 import exercise3_config as config
 from readers import GetProcessedInputData
+from scipy.spatial.distance import euclidean
 
 
 # Calculates the distance from the given word to all the other words.
@@ -15,8 +17,11 @@ def ComputeDistance(word, other_words, debug=False):
   for other_word in other_words:
     if debug:
       print(f'Compute distances for test word {other_word.id}')
+    #distances[other_word.id] = \
+    #  dtw.distance(word.features, other_word.features)
     distances[other_word.id] = \
-      dtw.distance(word.features, other_word.features)
+      fastdtw(word.features, other_word.features, dist=euclidean)
+
   return distances
 
 
