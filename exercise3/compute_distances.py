@@ -19,7 +19,7 @@ def ComputeDistance(word, other_words, debug=False):
       print(f'Compute distances for test word {other_word.id}')
     #distances[other_word.id] = \
     #  dtw.distance(word.features, other_word.features)
-    distances[other_word.id] = \
+    distances[other_word.id], _ = \
       fastdtw(word.features, other_word.features, dist=euclidean)
 
   return distances
@@ -59,7 +59,8 @@ if __name__ == "__main__":
     pass
 
   # Single method only!
-  feature_extraction_methods = [Method.BLACK_PIXEL_RATIO]
+  feature_extraction_methods = \
+    [Method.BLACK_PIXEL_RATIO, Method.BLACK_PIXEL_RATIO_LC_UP, Method.LOWER_CONTOUR, Method.UPPER_CONTOUR, Method.PIXEL_TRANSITIONS]
   transcriptions_as_list, keywords_to_search, train_words, test_words = \
     GetProcessedInputData(feature_extraction_methods, debug=True)
 
