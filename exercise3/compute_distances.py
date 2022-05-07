@@ -60,7 +60,7 @@ if __name__ == "__main__":
 
   # Single method only!
   feature_extraction_methods = \
-    [Method.BLACK_PIXEL_RATIO, Method.BLACK_PIXEL_RATIO_LC_UP, Method.LOWER_CONTOUR, Method.UPPER_CONTOUR, Method.PIXEL_TRANSITIONS]
+    [Method.BLACK_PIXEL_RATIO, Method.BLACK_PIXEL_RATIO_LC_UP, Method.LOWER_CONTOUR, Method.UPPER_CONTOUR]
   transcriptions_as_list, keywords_to_search, train_words, test_words = \
     GetProcessedInputData(feature_extraction_methods, debug=True)
 
