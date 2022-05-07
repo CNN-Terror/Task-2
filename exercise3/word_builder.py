@@ -29,7 +29,7 @@ def BuildTrainAndTestWords(train_words_per_image, test_words_per_image, transcri
 
       word = Word()
       word.image = train_word
-      word.features = [e for v in ExtractFeatures(train_word, feature_extraction_methods) for e in v]
+      word.features = ExtractFeatures(train_word, feature_extraction_methods)
       word.id = transcriptions[index][0]
       word.transcription = transcriptions[index][1]
       index += 1
@@ -45,7 +45,7 @@ def BuildTrainAndTestWords(train_words_per_image, test_words_per_image, transcri
 
       word = TestWord()
       word.image = test_word
-      word.features = [e for v in ExtractFeatures(test_word, feature_extraction_methods) for e in v]
+      word.features = ExtractFeatures(test_word, feature_extraction_methods)
       word.id = transcriptions[index][0]
       word.transcription = transcriptions[index][1]
       index += 1
