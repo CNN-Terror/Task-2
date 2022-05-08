@@ -15,8 +15,8 @@ from scipy.spatial.distance import euclidean
 def ComputeDistance(word, other_words, debug=False):
   distances = {}
   for other_word in other_words:
-    if debug:
-      print(f'Compute distances for test word {other_word.id}')
+    # if debug:
+    #   print(f'Compute distances for test word {other_word.id}')
     #distances[other_word.id] = \
     #  dtw.distance(word.features, other_word.features)
     distances[other_word.id], _ = \
