@@ -48,10 +48,31 @@ def __WriteToFile(filepath, distances):
       csv_writer.writerow([entry[0], entry[1]])
 
 
+def ReadDistances(filepath):
+  distances = {}
+  with open(filepath, 'r') as f:
+    csv_reader = csv.reader(f, delimiter=',')
+    for row in csv_reader:
+      test_word_id = row[0]
+      while test_word_id[0] == '0':
+        test_word_id = test_word_id[1:]
+      distances[test_word_id] = row[1]
+  return distances
+
+
+def ReadAllDistances(root_dir):
+  all_files = [os.path.join(root, file) for root, _, files in os.walk(root_dir) for file in files if file.split('.')[-1] == 'csv']
+  distances = {}
+  for file in all_files:
+    train_word_id = (file.split('/')[-1]).split('.')[0]
+    distances[train_word_id] = ReadDistances(file)
+  return distances
+
 
 # We'll store distances in an output dir using csv files as follows
 # {output_dir_name}/{feature}/{page_number}/{word_id}.csv = output/BLACK_PIXEL_RATIO/270/270-01-01.csv
 if __name__ == "__main__":
+  # distancces = ReadAllDistances(config.OUTPUT_DIR)
   try:
     os.mkdir(os.path.join(config.OUTPUT_DIR))
   except OSError as error: 
