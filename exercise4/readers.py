@@ -22,7 +22,7 @@ def ExtractSignaturePaths(file_path):
 
   for file in os.listdir(file_path):
     if file.endswith(".txt"):
-        signature_numbers.append(file[0:3])
+        signature_numbers.append(file[0:4] + file[-6:-4])
         signature_paths.append(os.path.join(file_path, file))
   return signature_numbers, signature_paths
 
