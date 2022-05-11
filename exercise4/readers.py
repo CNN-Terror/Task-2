@@ -1,5 +1,5 @@
 import os
-from feature_extraction import ExtractFeatures
+from feature_extraction import ExtractFeatures, Feature
 
 # Extracts gt.
 # Output:
@@ -26,12 +26,15 @@ def ExtractSignaturePaths(file_path):
         signature_paths.append(os.path.join(file_path, file))
   return signature_numbers, signature_paths
 
-#To get a 2d array from each signature file
+#To get a 2d array of Feature from each signature file
 def fromFileToArray(fileName):
     array = []
     file = open(fileName, "r")
     for line in file.readlines():
-        array.append(line.splitlines() )
+        subArray = line.split(' ')
+        subArrayInt = list(map(float, subArray))
+        # * stand for argument unpacking
+        array.append(Feature(*subArrayInt))
     file.close()
     return array
 
@@ -40,23 +43,17 @@ def GetTrainAndTestSignatureFeatures(train_paths, train_users, test_paths, test_
     train_features = []
     test_features = []
 
-    #Take each file
     for i in range(len(train_paths)):
-        file_to_array = fromFileToArray(train_paths[i])
-        file_features = []
-        #Take each line of file and compute the features needed for dtw
-        for lineFeatures in file_to_array:
-            features = ExtractFeatures(lineFeatures)
-            file_features.append(features)
-        train_features.append((train_users[i], file_features))
+        file_to_array_features = fromFileToArray(train_paths[i])
+        features = ExtractFeatures(file_to_array_features)
+        train_features.append((train_users[i], features))
 
     for i in range(len(test_paths)):
-        file_to_array = fromFileToArray(test_paths[i])
-        file_features = []
-        for lineFeatures in file_to_array:
-            features = ExtractFeatures(lineFeatures)
-            file_features.append(features)
-        test_features.append((test_users[i], file_features))
+        file_to_array_features = fromFileToArray(test_paths[i])
+        features = ExtractFeatures(file_to_array_features)
+        test_features.append((test_users[i], features))
+    
+    return train_features, test_features
     
     
 
