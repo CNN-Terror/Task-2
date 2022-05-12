@@ -6,7 +6,7 @@ from feature_extraction import ExtractFeatures, Feature
 #  - gt: list of (signature_id, signature_type [g or f])
 def ExtractGtAsList():
   gt = []
-  gt_path = os.path.join('SignatureVerification\gt.txt')
+  gt_path = os.path.join('SignatureVerification', 'gt.txt')
   with open(gt_path) as gt_file:
     for line in gt_file.readlines():
       signature_id, signature_type = line.strip().split(sep=" ")
@@ -61,9 +61,9 @@ def GetProcessedInputData():
     gt = ExtractGtAsList()
     
     train_signature_numbers, train_signature_paths = \
-        ExtractSignaturePaths(os.path.join('SignatureVerification/enrollment'))
+        ExtractSignaturePaths(os.path.join('SignatureVerification', 'enrollment'))
     test_signature_numbers, test_signature_paths = \
-        ExtractSignaturePaths(os.path.join('SignatureVerification/verification'))
+        ExtractSignaturePaths(os.path.join('SignatureVerification', 'verification'))
 
     train_signatures, test_signatures = \
         GetTrainAndTestSignatureFeatures(train_signature_paths, train_signature_numbers, test_signature_paths, test_signature_numbers)
