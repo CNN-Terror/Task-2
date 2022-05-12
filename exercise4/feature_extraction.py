@@ -1,3 +1,6 @@
+import numpy as np
+
+
 class Feature:
   def __init__(self, t, x, y, pressure, penup, azimuth, inclination):
     self.t = t
@@ -33,11 +36,12 @@ def ExtractFeaturesForPoint(initial_features_for_current_time, initial_features_
     vx = delta_x / initial_features_for_current_time.t
     vy = delta_y / initial_features_for_current_time.t
 
-  return [initial_features_for_current_time.x, 
-          initial_features_for_current_time.y, 
-          vx, 
-          vy, 
-          initial_features_for_current_time.pressure]
+  return np.array([initial_features_for_current_time.x, 
+                   initial_features_for_current_time.y, 
+                   vx, 
+                   vy, 
+                   initial_features_for_current_time.pressure],
+                   dtype=float)
 
 
 # Input:
@@ -49,7 +53,7 @@ def ExtractFeatures(all_inital_features):
   for index in range(1, len(all_inital_features)):
     new_features = ExtractFeaturesForPoint(all_inital_features[index], all_inital_features[index - 1])
     final_features.append(new_features)
-  return final_features
+  return np.array(final_features, dtype=float)
 
 
 if __name__ == "__main__":
