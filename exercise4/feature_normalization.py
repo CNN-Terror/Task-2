@@ -14,11 +14,17 @@ class NormalizationMethod(Enum):
 # https://www.codecademy.com/article/normalization
 def NormalizeFeatures(initial_features, method):
   if method is NormalizationMethod.MIN_MAX:
+    if initial_features.__class__ is Feature.__class__:
+      return __ApplyMinMaxNormalizationOnFeatureObjects(initial_features)
     return __ApplyMinMaxNormalization(initial_features)
   return initial_features
 
 
 def __ApplyMinMaxNormalization(initial_features):
+  return minmax_scale(initial_features[:], feature_range=(0,1))
+  
+
+def __ApplyMinMaxNormalizationOnFeatureObjects(initial_features):
   features_as_nparray = [[feature.t,
                           feature.x,
                           feature.y,
