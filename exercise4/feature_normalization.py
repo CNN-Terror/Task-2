@@ -4,6 +4,7 @@ from feature_extraction import Feature
 
 
 class NormalizationMethod(Enum):
+  NONE = 0
   MIN_MAX = 1
 
 
