@@ -9,8 +9,9 @@ from scipy.spatial.distance import euclidean
 def ComputeDistance(signature, other_signatures):
   distances = {}
   for other_signature in other_signatures:
-    distances[other_signature[0]], _ = \
-      fastdtw(signature[1], other_signature[1], dist=euclidean)
+    if signature[0][:3] == other_signature[0][:3]:
+      distances[other_signature[0]], _ = \
+        fastdtw(signature[1], other_signature[1], dist=euclidean)
 
   return distances
 
