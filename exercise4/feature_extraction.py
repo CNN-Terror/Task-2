@@ -14,14 +14,15 @@ def ExtractFeaturesForPoint(initial_features_for_current_time, initial_features_
     # TODO: check if this is correct, probably not
     delta_x = initial_features_for_current_time.x - initial_features_for_previous_time.x
     delta_y = initial_features_for_current_time.y - initial_features_for_previous_time.y
-    vx = delta_x / initial_features_for_current_time.t
-    vy = delta_y / initial_features_for_current_time.t
+    delta_t = initial_features_for_current_time.t - initial_features_for_previous_time.t
+    vx = delta_x / delta_t
+    vy = delta_y / delta_t
 
   return np.array([initial_features_for_current_time.x, 
                    initial_features_for_current_time.y, 
+                   initial_features_for_current_time.pressure,
                    vx, 
-                   vy, 
-                   initial_features_for_current_time.pressure],
+                   vy],
                    dtype=float)
 
 
