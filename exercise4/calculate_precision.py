@@ -4,19 +4,19 @@ from distance_normalization import normalizeDistances
 
 def calculate_scores(y_true, y_pred):
     r = numpy.flip(sklearn.metrics.confusion_matrix(y_true, y_pred))
-    print(r)
+    #print(r)
 
     precision = sklearn.metrics.precision_score(y_true=y_true, y_pred=y_pred, pos_label="g")
-    print(precision)
+    #print(precision)
 
     recall = sklearn.metrics.recall_score(y_true=y_true, y_pred=y_pred, pos_label="g")
-    print(recall)
+    #print(recall)
 
     return [r, precision, recall]
 
-def calculate_results(distances, train_signatures, gt_list):
+def calculate_results(distances, train_signatures, gt_list, threshold = 0.25):
     normalized_distances = normalizeDistances(distances)
-    normalized_distances_dict = normalized_distance_dict(normalized_distances)
+    normalized_distances_dict = normalized_distance_dict(normalized_distances, threshold)
     signature_results = merge_genuine_signature_results(normalized_distances_dict, train_signatures)
     y_pred = get_predictions(signature_results)
     scores = calculate_scores(list(gt_list.values()),list(y_pred.values()))
@@ -46,13 +46,13 @@ def merge_genuine_signature_results(new_dict, train_signatures):
     return merged_results_dict
 
 
-def normalized_distance_dict(normalized_distances):
+def normalized_distance_dict(normalized_distances, threshold):
     new_dict = {}
     for k in normalized_distances:
         new_dict[k] = {}
         for key, value in normalized_distances[k].items():
             # Hardcoded value, what to consider as margin, how exactly to choose this value?
-            if value < 0.25:
+            if value < threshold:
                 new_dict[k][key] = 0
             else:
                 new_dict[k][key] = 1
