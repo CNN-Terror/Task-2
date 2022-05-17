@@ -21,7 +21,7 @@ def calculate_results(distances, train_signatures, gt_list, threshold = 0.25):
     y_pred = get_predictions(signature_results)
     scores = calculate_scores(list(gt_list.values()),list(y_pred.values()))
 
-    return scores
+    return scores + [y_pred]
 
 
 def get_predictions(signature_results):
