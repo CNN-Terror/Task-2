@@ -1,5 +1,6 @@
 # Methods used to read from the input files exercise.
 import os
+import re
 import exercise3_config as config
 from image_preprocessing import CropAllWordImages
 from word_builder import BuildTrainAndTestWords
@@ -56,6 +57,17 @@ def ExtractImagePaths(text_file_path):
   return images_numbers, jpg_paths, svg_paths
 
 
+# Remove commas, dots from the end of the transcription
+# Process transcription and remove everything that's not a number of letter.
+def ProcessTranscription(original_transcription):
+  patterns_to_replace = [('-s_([a-z]){2}-', '-'),
+                         ('[-]?s_([a-z]){2}[-]?', '')]
+  processed_transcription = original_transcription
+  for pattern_to_remove in patterns_to_replace:
+    processed_transcription = re.sub(pattern_to_remove[0], pattern_to_remove[1], processed_transcription)
+  return processed_transcription
+
+
 # Extracts transcriptions.
 # Output:
 #  - transcriptions: dict. transcriptions[keyword_id] = (transcription, index in the doc)
@@ -67,11 +79,12 @@ def ExtractTranscriptionsAsDictionary():
   current_file = None
   with open(transcriptions_path) as transcriptions_file:
     for line in transcriptions_file.readlines():
-      keyword_id, keyword_transcription = line.strip().split(sep=" ")
+      keyword_id, original_keyword_transcription = line.strip().split(sep=" ")
       keyword_file = keyword_id.split(sep="-")[0]
       if keyword_file != current_file:
         current_file = keyword_file
         index = 0
+      keyword_transcription = ProcessTranscription(original_keyword_transcription)
       transcriptions[keyword_id] = (keyword_transcription, index)
       index += 1
 
@@ -87,7 +100,8 @@ def ExtractTranscriptionsAsList():
   transcriptions_path = os.path.join(config.DATA_ROOT_DIR, 'ground-truth/transcription.txt')
   with open(transcriptions_path) as transcriptions_file:
     for line in transcriptions_file.readlines():
-      keyword_id, keyword_transcription = line.strip().split(sep=" ")
+      keyword_id, original_keyword_transcription = line.strip().split(sep=" ")
+      keyword_transcription = ProcessTranscription(original_keyword_transcription)
       transcriptions.append((keyword_id, keyword_transcription))
 
   return transcriptions
